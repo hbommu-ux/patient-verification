@@ -95,9 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const alertEl = document.getElementById('verification-alert');
             const alertMessage = alertEl?.querySelector('.alert-message');
 
-            // Change to info state while verifying
-            alertEl?.classList.remove('alert-success');
-            alertEl?.classList.add('alert-info');
+            // Show verifying state
             if (alertMessage) {
                 alertMessage.textContent = 'Verifying patient...';
             }
@@ -111,9 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     year: 'numeric'
                 });
 
-                // Change back to success state
-                alertEl?.classList.remove('alert-info');
-                alertEl?.classList.add('alert-success');
+                // Update with new verification date
                 if (alertMessage) {
                     alertMessage.textContent = `Patient verified on ${today}`;
                 }

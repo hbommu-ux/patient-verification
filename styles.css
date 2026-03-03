@@ -613,25 +613,30 @@ body {
     font-weight: 500;
 }
 
+/* Tertiary Button Style for RE-VERIFY */
 .reverify-btn {
-    padding: var(--space-8) var(--space-16);
-    background: var(--primary-main);
+    padding: var(--space-4) var(--space-8);
+    background: transparent;
     border: none;
-    border-radius: var(--radius-sm);
     font-family: var(--font-family);
     font-size: var(--font-size-sm);
     font-weight: 500;
-    color: var(--primary-on-primary);
+    color: var(--primary-main);
     letter-spacing: var(--letter-spacing-button);
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: opacity 0.2s ease;
     flex-shrink: 0;
     margin-left: auto;
 }
 
 .reverify-btn:hover {
-    background: var(--primary-dark);
+    opacity: 0.8;
+}
+
+.reverify-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* ===== FORM SECTION ===== */
