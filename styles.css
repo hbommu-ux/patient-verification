@@ -600,24 +600,17 @@ body {
     gap: var(--space-20);
 }
 
-/* ===== VERIFICATION BANNER ===== */
-.verification-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-16) var(--space-20);
-    background: var(--success-fill);
-    border: 1px solid var(--success-border);
-    border-radius: var(--radius-md);
+/* ===== VERIFICATION ALERT (uses Alert component) ===== */
+#verification-alert {
+    margin-bottom: 0;
 }
 
-.verification-info {
-    display: flex;
-    align-items: center;
-    gap: var(--space-10);
-    font-size: var(--font-size-base);
+#verification-alert .alert-content {
+    flex: 1;
+}
+
+#verification-alert .alert-message {
     font-weight: 500;
-    color: var(--success-content);
 }
 
 .reverify-btn {
@@ -633,6 +626,8 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 .reverify-btn:hover {
