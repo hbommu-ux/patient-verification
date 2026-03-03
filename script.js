@@ -256,8 +256,8 @@ function showNotification(message, type) {
         style.textContent = `
             .notification {
                 position: fixed;
-                top: 20px;
-                right: 20px;
+                bottom: 20px;
+                left: 20px;
                 padding: 14px 20px;
                 border-radius: 8px;
                 display: flex;
@@ -292,7 +292,7 @@ function showNotification(message, type) {
             }
             @keyframes slideIn {
                 from {
-                    transform: translateX(100%);
+                    transform: translateX(-100%);
                     opacity: 0;
                 }
                 to {
