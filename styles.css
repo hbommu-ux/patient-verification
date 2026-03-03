@@ -756,6 +756,25 @@ body {
     color: #cd1d1d; /* Red-600 */
 }
 
+/* Unverified alert specific styles */
+.alert-unverified {
+    background-color: var(--red-50);
+    border: 1px solid #f9d7d7;
+    color: #cd1d1d;
+}
+
+.alert-unverified .alert-icon {
+    color: #e23636;
+}
+
+.alert-unverified .alert-message {
+    color: #cd1d1d;
+}
+
+.alert-unverified .reverify-btn {
+    color: #cd1d1d;
+}
+
 /* ===== FORM SECTION ===== */
 .form-section {
     background: var(--surface-lowest);

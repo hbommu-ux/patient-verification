@@ -75,6 +75,34 @@ const patientsData = {
                 state: 'TN'
             }
         ]
+    },
+    'emma-watson': {
+        id: 'emma-watson',
+        firstName: 'Emma',
+        middleName: 'Charlotte',
+        lastName: 'Watson',
+        alternateLast: '',
+        dob: '04/15/1990',
+        biologicalSex: 'Female',
+        preferredLanguage: 'English',
+        preferredName: '',
+        phone: '212-555-0177',
+        altPhone: '',
+        email: 'emma.w@email.com',
+        altEmail: '',
+        verificationDate: null, // Never verified
+        authorizedContact: 'Parent Watson',
+        addresses: [
+            {
+                type: 'primary',
+                country: 'United States',
+                address: '789 Park Avenue',
+                apartment: 'Penthouse 4',
+                city: 'New York',
+                zipcode: '10021',
+                state: 'NY'
+            }
+        ]
     }
 };
 
@@ -818,6 +846,29 @@ function updateAddresses(addresses) {
 function updateVerificationDate(dateString) {
     const alertEl = document.getElementById('verification-alert');
     const alertMessage = alertEl?.querySelector('.alert-message');
+    const alertIcon = alertEl?.querySelector('.alert-icon');
+
+    // Handle unverified state (null or empty date)
+    if (!dateString) {
+        if (alertMessage) {
+            alertMessage.textContent = 'Unverified changes';
+        }
+        // Update to unverified/error state
+        alertEl.classList.remove('alert-success', 'alert-warning', 'alert-info');
+        alertEl.classList.add('alert-error', 'alert-unverified');
+
+        // Update icon to error exclamation
+        if (alertIcon) {
+            alertIcon.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M10 6V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="10" cy="14" r="0.75" fill="currentColor"/>
+                </svg>
+            `;
+        }
+        return;
+    }
 
     if (alertMessage) {
         alertMessage.textContent = `Patient verified on ${dateString}`;
@@ -888,7 +939,7 @@ function updateVerificationAlertState(alertEl, verificationDate) {
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
     // Remove existing state classes
-    alertEl.classList.remove('alert-success', 'alert-warning', 'alert-info', 'alert-error');
+    alertEl.classList.remove('alert-success', 'alert-warning', 'alert-info', 'alert-error', 'alert-unverified');
 
     // Check if verification is older than 6 months
     if (verificationDate < sixMonthsAgo) {
