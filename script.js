@@ -177,10 +177,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Delete buttons
-    document.querySelectorAll('.delete-btn').forEach(btn => {
+    // Delete buttons for cards (billing, contacts, clinic)
+    document.querySelectorAll('.card-wrapper .delete-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const card = this.closest('.address-card, .card-wrapper, .form-section');
+            const card = this.closest('.card-wrapper');
             if (card && confirm('Are you sure you want to delete this item?')) {
                 card.style.opacity = '0';
                 card.style.transform = 'translateX(-20px)';
@@ -189,6 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 showNotification('Item deleted', 'success');
             }
         });
+    });
+
+    // Delete buttons for address entries
+    document.querySelectorAll('.address-entry[data-address-type="alternate"] .delete-btn').forEach(btn => {
+        attachAddressDeleteHandler(btn);
     });
 
     // Set as primary address checkbox
@@ -315,27 +320,33 @@ function showNotification(message, type) {
 }
 
 function addNewAddress() {
-    const addressSection = document.querySelector('#addresses');
-    if (!addressSection) return;
+    const addressesContainer = document.querySelector('.addresses-container');
+    if (!addressesContainer) return;
 
-    const count = document.querySelectorAll('.address-card').length;
-    const newCard = document.createElement('section');
-    newCard.className = 'form-section address-card';
-    newCard.innerHTML = `
-        <div class="section-header">
-            <h3>Alternate Address ${count}</h3>
+    // Count existing alternate addresses
+    const alternateAddresses = addressesContainer.querySelectorAll('[data-address-type="alternate"]');
+    const count = alternateAddresses.length + 1;
+
+    const newEntry = document.createElement('div');
+    newEntry.className = 'address-entry';
+    newEntry.setAttribute('data-address-type', 'alternate');
+    newEntry.innerHTML = `
+        <div class="address-entry-header">
+            <span class="address-label">Alternate Address ${count}</span>
             <button class="delete-btn">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M3 4h10M6 4V3a1 1 0 011-1h2a1 1 0 011 1v1M12 4v8a1 1 0 01-1 1H5a1 1 0 01-1-1V4" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
                 </svg>
             </button>
         </div>
-        <div class="form-grid narrow">
+        <div class="form-grid">
             <div class="form-group full-width">
                 <label>Country/Region</label>
                 <div class="select-wrapper">
                     <select>
                         <option selected>United States</option>
+                        <option>Canada</option>
+                        <option>Mexico</option>
                     </select>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
@@ -380,8 +391,8 @@ function addNewAddress() {
         </label>
     `;
 
-    addressSection.after(newCard);
-    attachDeleteHandler(newCard.querySelector('.delete-btn'));
+    addressesContainer.appendChild(newEntry);
+    attachAddressDeleteHandler(newEntry.querySelector('.delete-btn'));
     showNotification('New address added', 'success');
 }
 
@@ -442,6 +453,34 @@ function attachDeleteHandler(btn) {
             card.style.transition = 'all 0.3s ease';
             setTimeout(() => card.remove(), 300);
             showNotification('Item deleted', 'success');
+        }
+    });
+}
+
+function attachAddressDeleteHandler(btn) {
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+        const entry = this.closest('.address-entry');
+        if (entry && confirm('Are you sure you want to delete this address?')) {
+            entry.style.opacity = '0';
+            entry.style.transform = 'translateX(-20px)';
+            entry.style.transition = 'all 0.3s ease';
+            setTimeout(() => {
+                entry.remove();
+                // Renumber remaining alternate addresses
+                renumberAlternateAddresses();
+            }, 300);
+            showNotification('Address deleted', 'success');
+        }
+    });
+}
+
+function renumberAlternateAddresses() {
+    const alternateAddresses = document.querySelectorAll('.address-entry[data-address-type="alternate"]');
+    alternateAddresses.forEach((entry, index) => {
+        const label = entry.querySelector('.address-label');
+        if (label) {
+            label.textContent = `Alternate Address ${index + 1}`;
         }
     });
 }

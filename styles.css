@@ -959,6 +959,37 @@ body {
     padding: var(--space-20);
 }
 
+/* Addresses Container */
+.addresses-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+}
+
+.address-entry {
+    padding-bottom: var(--space-20);
+    border-bottom: 1px solid var(--divider-light);
+}
+
+.address-entry:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.address-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-16);
+}
+
+.address-label {
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
 /* ===== ACTIVITY PANEL ===== */
 .activity-panel {
     width: 340px;

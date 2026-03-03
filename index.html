@@ -269,10 +269,10 @@
                             </div>
                         </section>
 
-                        <!-- Primary Address -->
+                        <!-- Addresses -->
                         <section id="addresses" class="form-section">
                             <div class="section-header">
-                                <h3>Primary Address</h3>
+                                <h3>Addresses</h3>
                                 <button class="add-btn">
                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                                         <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -280,120 +280,130 @@
                                     ADD ADDRESS
                                 </button>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>Country/Region</label>
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option selected>United States</option>
-                                            <option>Canada</option>
-                                            <option>Mexico</option>
-                                        </select>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Address</label>
-                                    <div class="input-with-clear">
-                                        <input type="text" value="888 N San Mateo Dr">
-                                        <button class="clear-btn">
-                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                <path d="M4 4l6 6M10 4l-6 6" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Apartment, suite, unit</label>
-                                    <input type="text" value="Unit 34B">
-                                </div>
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <input type="text" value="San Mateo">
-                                </div>
-                                <div class="form-group">
-                                    <label>Zipcode</label>
-                                    <input type="text" value="94401">
-                                </div>
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option selected>CA</option>
-                                            <option>NY</option>
-                                            <option>TX</option>
-                                        </select>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
 
-                        <!-- Alternate Address 1 -->
-                        <section class="form-section address-card">
-                            <div class="section-header">
-                                <h3>Alternate Address 1</h3>
-                                <button class="delete-btn">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M3 4h10M6 4V3a1 1 0 011-1h2a1 1 0 011 1v1M12 4v8a1 1 0 01-1 1H5a1 1 0 01-1-1V4" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="form-grid narrow">
-                                <div class="form-group full-width">
-                                    <label>Country/Region</label>
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option selected>United States</option>
-                                        </select>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
+                            <!-- Addresses Container -->
+                            <div class="addresses-container">
+                                <!-- Primary Address -->
+                                <div class="address-entry" data-address-type="primary">
+                                    <div class="address-entry-header">
+                                        <span class="address-label">Primary Address</span>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-group full-width">
+                                            <label>Country/Region</label>
+                                            <div class="select-wrapper">
+                                                <select>
+                                                    <option selected>United States</option>
+                                                    <option>Canada</option>
+                                                    <option>Mexico</option>
+                                                </select>
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="form-group full-width">
+                                            <label>Address</label>
+                                            <div class="input-with-clear">
+                                                <input type="text" value="888 N San Mateo Dr">
+                                                <button class="clear-btn">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M4 4l6 6M10 4l-6 6" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group full-width">
+                                            <label>Apartment, suite, unit</label>
+                                            <input type="text" value="Unit 34B">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" value="San Mateo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zipcode</label>
+                                            <input type="text" value="94401">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <div class="select-wrapper">
+                                                <select>
+                                                    <option selected>CA</option>
+                                                    <option>NY</option>
+                                                    <option>TX</option>
+                                                </select>
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>Address</label>
-                                    <div class="input-with-clear">
-                                        <input type="text" value="125 Lincoln ave">
-                                        <button class="clear-btn">
-                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                <path d="M4 4l6 6M10 4l-6 6" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+
+                                <!-- Alternate Address 1 -->
+                                <div class="address-entry" data-address-type="alternate">
+                                    <div class="address-entry-header">
+                                        <span class="address-label">Alternate Address 1</span>
+                                        <button class="delete-btn">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M3 4h10M6 4V3a1 1 0 011-1h2a1 1 0 011 1v1M12 4v8a1 1 0 01-1 1H5a1 1 0 01-1-1V4" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
                                             </svg>
                                         </button>
                                     </div>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Apartment, suite, unit</label>
-                                    <input type="text" value="Apartment 12">
-                                </div>
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <input type="text" value="Miami">
-                                </div>
-                                <div class="form-group">
-                                    <label>Zipcode</label>
-                                    <input type="text" value="779032">
-                                </div>
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option selected>FL</option>
-                                        </select>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
+                                    <div class="form-grid">
+                                        <div class="form-group full-width">
+                                            <label>Country/Region</label>
+                                            <div class="select-wrapper">
+                                                <select>
+                                                    <option selected>United States</option>
+                                                </select>
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="form-group full-width">
+                                            <label>Address</label>
+                                            <div class="input-with-clear">
+                                                <input type="text" value="125 Lincoln ave">
+                                                <button class="clear-btn">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M4 4l6 6M10 4l-6 6" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group full-width">
+                                            <label>Apartment, suite, unit</label>
+                                            <input type="text" value="Apartment 12">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" value="Miami">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zipcode</label>
+                                            <input type="text" value="779032">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <div class="select-wrapper">
+                                                <select>
+                                                    <option selected>FL</option>
+                                                </select>
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox">
+                                        <span>Set as Primary Address</span>
+                                    </label>
                                 </div>
                             </div>
-                            <label class="checkbox-label">
-                                <input type="checkbox">
-                                <span>Set as Primary Address</span>
-                            </label>
                         </section>
 
                         <!-- Phone & Email -->
