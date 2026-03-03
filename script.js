@@ -3,6 +3,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize verification alert based on date
     initVerificationAlert();
+
+    // Initialize form change tracking for Save/Cancel buttons
+    initFormChangeTracking();
     // Navigation link active state handling
     const navLinks = document.querySelectorAll('.profile-nav .nav-link');
     const formSections = document.querySelectorAll('.form-section');
@@ -74,9 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveBtn = document.querySelector('.save-btn');
     if (saveBtn) {
         saveBtn.addEventListener('click', function() {
+            if (saveBtn.disabled) return;
+
             const formData = collectFormData();
             console.log('Saving patient data:', formData);
             showNotification('Patient profile saved successfully!', 'success');
+
+            // After saving, update initial values and disable buttons
+            saveInitialFormState();
+            setFormButtonsState(false);
         });
     }
 
@@ -84,8 +93,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.querySelector('.cancel-btn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {
+            if (cancelBtn.disabled) return;
+
             if (confirm('Are you sure you want to discard changes?')) {
-                location.reload();
+                // Restore initial values
+                restoreInitialFormState();
+                setFormButtonsState(false);
             }
         });
     }
@@ -518,6 +531,119 @@ function updateAlertIcon(alertEl, state) {
                 <path d="M7 10L9 12L13 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         `;
+    }
+}
+
+// ===== Form Change Tracking for Save/Cancel Buttons =====
+
+// Store initial form values
+let initialFormState = {};
+
+/**
+ * Initialize form change tracking
+ * Save initial state and set up change listeners
+ */
+function initFormChangeTracking() {
+    // Save initial form state
+    saveInitialFormState();
+
+    // Disable Save/Cancel buttons initially
+    setFormButtonsState(false);
+
+    // Add change listeners to all form inputs
+    const formContent = document.querySelector('.form-content');
+    if (!formContent) return;
+
+    // Listen for input changes
+    formContent.addEventListener('input', handleFormChange);
+    formContent.addEventListener('change', handleFormChange);
+}
+
+/**
+ * Save the initial state of all form inputs
+ */
+function saveInitialFormState() {
+    initialFormState = {};
+    const formContent = document.querySelector('.form-content');
+    if (!formContent) return;
+
+    const inputs = formContent.querySelectorAll('input, select, textarea');
+    inputs.forEach((input, index) => {
+        const key = input.id || input.name || `field_${index}`;
+        if (input.type === 'checkbox') {
+            initialFormState[key] = input.checked;
+        } else {
+            initialFormState[key] = input.value;
+        }
+    });
+}
+
+/**
+ * Restore form to initial state
+ */
+function restoreInitialFormState() {
+    const formContent = document.querySelector('.form-content');
+    if (!formContent) return;
+
+    const inputs = formContent.querySelectorAll('input, select, textarea');
+    inputs.forEach((input, index) => {
+        const key = input.id || input.name || `field_${index}`;
+        if (initialFormState.hasOwnProperty(key)) {
+            if (input.type === 'checkbox') {
+                input.checked = initialFormState[key];
+            } else {
+                input.value = initialFormState[key];
+            }
+        }
+    });
+}
+
+/**
+ * Check if form has changes compared to initial state
+ * @returns {boolean}
+ */
+function hasFormChanges() {
+    const formContent = document.querySelector('.form-content');
+    if (!formContent) return false;
+
+    const inputs = formContent.querySelectorAll('input, select, textarea');
+    for (let i = 0; i < inputs.length; i++) {
+        const input = inputs[i];
+        const key = input.id || input.name || `field_${i}`;
+
+        if (initialFormState.hasOwnProperty(key)) {
+            if (input.type === 'checkbox') {
+                if (input.checked !== initialFormState[key]) return true;
+            } else {
+                if (input.value !== initialFormState[key]) return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Handle form input changes
+ */
+function handleFormChange() {
+    const hasChanges = hasFormChanges();
+    setFormButtonsState(hasChanges);
+}
+
+/**
+ * Enable or disable Save and Cancel buttons
+ * @param {boolean} enabled
+ */
+function setFormButtonsState(enabled) {
+    const saveBtn = document.querySelector('.save-btn');
+    const cancelBtn = document.querySelector('.cancel-btn');
+
+    if (saveBtn) {
+        saveBtn.disabled = !enabled;
+    }
+    if (cancelBtn) {
+        cancelBtn.disabled = !enabled;
     }
 }
 

@@ -551,6 +551,27 @@ body {
     background: var(--primary-dark);
 }
 
+/* Disabled Button States */
+.save-btn:disabled {
+    background: var(--action-disabled);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+}
+
+.save-btn:disabled:hover {
+    background: var(--action-disabled);
+}
+
+.cancel-btn:disabled {
+    border-color: var(--action-disabled);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+}
+
+.cancel-btn:disabled:hover {
+    background: transparent;
+}
+
 /* ===== PROFILE CONTENT LAYOUT ===== */
 .profile-content {
     display: flex;
