@@ -1,6 +1,8 @@
 // Natera HUB - Patient Verification Interface
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize verification alert based on date
+    initVerificationAlert();
     // Navigation link active state handling
     const navLinks = document.querySelectorAll('.profile-nav .nav-link');
     const formSections = document.querySelectorAll('.form-section');
@@ -103,7 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
             reverifyBtn.textContent = 'VERIFYING...';
 
             setTimeout(() => {
-                const today = new Date().toLocaleDateString('en-US', {
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString('en-US', {
                     month: '2-digit',
                     day: '2-digit',
                     year: 'numeric'
@@ -111,8 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Update with new verification date
                 if (alertMessage) {
-                    alertMessage.textContent = `Patient verified on ${today}`;
+                    alertMessage.textContent = `Patient verified on ${formattedDate}`;
                 }
+
+                // Update alert state (newly verified = success/green)
+                updateVerificationAlertState(alertEl, today);
+
                 reverifyBtn.disabled = false;
                 reverifyBtn.textContent = 'RE-VERIFY';
             }, 1500);
@@ -433,5 +440,84 @@ function clearAllForms() {
     document.querySelectorAll('.form-content select').forEach(select => {
         select.selectedIndex = 0;
     });
+}
+
+// ===== Verification Alert Logic =====
+
+/**
+ * Initialize the verification alert based on the verification date
+ */
+function initVerificationAlert() {
+    const alertEl = document.getElementById('verification-alert');
+    const alertMessage = alertEl?.querySelector('.alert-message');
+
+    if (!alertEl || !alertMessage) return;
+
+    // Parse the verification date from the message
+    // Format: "Patient verified on MM/DD/YYYY"
+    const messageText = alertMessage.textContent;
+    const dateMatch = messageText.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+
+    if (dateMatch) {
+        const [, month, day, year] = dateMatch;
+        const verificationDate = new Date(year, month - 1, day);
+        updateVerificationAlertState(alertEl, verificationDate);
+    }
+}
+
+/**
+ * Update the verification alert state based on how old the verification is
+ * @param {HTMLElement} alertEl - The alert element
+ * @param {Date} verificationDate - The date of verification
+ */
+function updateVerificationAlertState(alertEl, verificationDate) {
+    if (!alertEl) return;
+
+    const now = new Date();
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    // Remove existing state classes
+    alertEl.classList.remove('alert-success', 'alert-warning', 'alert-info', 'alert-error');
+
+    // Check if verification is older than 6 months
+    if (verificationDate < sixMonthsAgo) {
+        // Older than 6 months - warning/orange
+        alertEl.classList.add('alert-warning');
+        updateAlertIcon(alertEl, 'warning');
+    } else {
+        // Less than 6 months - success/green
+        alertEl.classList.add('alert-success');
+        updateAlertIcon(alertEl, 'success');
+    }
+}
+
+/**
+ * Update the alert icon based on state
+ * @param {HTMLElement} alertEl - The alert element
+ * @param {string} state - 'success' or 'warning'
+ */
+function updateAlertIcon(alertEl, state) {
+    const iconEl = alertEl?.querySelector('.alert-icon');
+    if (!iconEl) return;
+
+    if (state === 'warning') {
+        // Warning triangle icon
+        iconEl.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.57465 3.21665L1.51632 14.5C1.37079 14.7521 1.29379 15.0378 1.29298 15.3288C1.29216 15.6198 1.36756 15.906 1.51167 16.1588C1.65579 16.4117 1.86359 16.6222 2.11456 16.7696C2.36554 16.917 2.65087 16.996 2.94182 17H17.0585C17.3494 16.996 17.6348 16.917 17.8857 16.7696C18.1367 16.6222 18.3445 16.4117 18.4886 16.1588C18.6327 15.906 18.7081 15.6198 18.7073 15.3288C18.7065 15.0378 18.6295 14.7521 18.484 14.5L11.4257 3.21665C11.2766 2.97174 11.0673 2.76925 10.8173 2.62825C10.5674 2.48726 10.2853 2.41272 9.99848 2.41272C9.71168 2.41272 9.42959 2.48726 9.17965 2.62825C8.92971 2.76925 8.72043 2.97174 8.57132 3.21665H8.57465Z" fill="currentColor"/>
+                <path d="M10 7.5V10.8333" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="10" cy="13.5" r="0.75" fill="white"/>
+            </svg>
+        `;
+    } else {
+        // Success checkmark icon
+        iconEl.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="8" fill="currentColor"/>
+                <path d="M7 10L9 12L13 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+    }
 }
 

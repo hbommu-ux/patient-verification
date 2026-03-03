@@ -191,7 +191,9 @@
                     <!-- Form Content -->
                     <div class="form-content">
                         <!-- Verification Alert -->
-                        <div class="alert alert-info" role="alert" id="verification-alert">
+                        <!-- Alert state determined by JS based on verification date -->
+                        <!-- < 6 months old = success (green), > 6 months old = warning (orange) -->
+                        <div class="alert" role="alert" id="verification-alert">
                             <div class="alert-icon">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="10" cy="10" r="8" fill="currentColor"/>
