@@ -1,6 +1,11 @@
 // Natera HUB - Patient Verification Interface
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Alert notification area
+    initAlertContainer();
+
+    // Show demo alerts on page load (optional - remove in production)
+    showDemoAlerts();
     // Navigation link active state handling
     const navLinks = document.querySelectorAll('.profile-nav .nav-link');
     const formSections = document.querySelectorAll('.form-section');
@@ -212,6 +217,24 @@ function collectFormData() {
 }
 
 function showNotification(message, type) {
+    // Use the new Alert component if available
+    if (typeof Alert !== 'undefined' && document.getElementById('alert-container')) {
+        const severityMap = {
+            'success': 'success',
+            'info': 'info',
+            'error': 'error',
+            'warning': 'warning'
+        };
+        showAlert({
+            severity: severityMap[type] || 'info',
+            variant: 'filled',
+            message: message,
+            duration: 3000
+        });
+        return;
+    }
+
+    // Fallback to original notification
     const existing = document.querySelector('.notification');
     if (existing) existing.remove();
 
@@ -242,15 +265,15 @@ function showNotification(message, type) {
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
             }
             .notification-success {
-                background: #00A0B0;
+                background: #0081bd;
                 color: white;
             }
             .notification-info {
-                background: #3B82F6;
+                background: #268697;
                 color: white;
             }
             .notification-error {
-                background: #EF4444;
+                background: #cd1d1d;
                 color: white;
             }
             .notification button {
@@ -426,3 +449,95 @@ function clearAllForms() {
         select.selectedIndex = 0;
     });
 }
+
+// ===== Alert Component Integration =====
+
+function initAlertContainer() {
+    // Create a container for alerts if it doesn't exist
+    if (!document.getElementById('alert-container')) {
+        const alertContainer = document.createElement('div');
+        alertContainer.id = 'alert-container';
+        alertContainer.style.cssText = `
+            position: fixed;
+            top: 70px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            width: 100%;
+        `;
+        document.body.appendChild(alertContainer);
+    }
+}
+
+function showAlert(options) {
+    const container = document.getElementById('alert-container');
+    if (!container || typeof Alert === 'undefined') {
+        // Fallback to old notification if Alert is not available
+        showNotification(options.message || options.title, options.severity || 'info');
+        return;
+    }
+
+    const alert = new Alert({
+        severity: options.severity || 'info',
+        variant: options.variant || 'filled',
+        title: options.title || '',
+        message: options.message || '',
+        closable: options.closable !== false,
+        icon: options.icon !== false,
+        onClick: options.onClick || null,
+        onClose: options.onClose || null
+    });
+
+    const alertElement = alert.render();
+    alertElement.style.opacity = '0';
+    alertElement.style.transform = 'translateX(20px)';
+
+    container.appendChild(alertElement);
+
+    // Animate in
+    requestAnimationFrame(() => {
+        alertElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        alertElement.style.opacity = '1';
+        alertElement.style.transform = 'translateX(0)';
+    });
+
+    // Auto-close after duration (if specified)
+    if (options.duration !== false) {
+        const duration = options.duration || 5000;
+        setTimeout(() => {
+            alert.close();
+        }, duration);
+    }
+
+    return alert;
+}
+
+function showDemoAlerts() {
+    // Show example alerts to demonstrate the component
+    setTimeout(() => {
+        showAlert({
+            severity: 'info',
+            variant: 'outlined',
+            title: 'Information',
+            message: 'Patient profile loaded successfully.',
+            duration: 4000,
+            onClick: () => console.log('Info alert clicked')
+        });
+    }, 500);
+
+    setTimeout(() => {
+        showAlert({
+            severity: 'success',
+            variant: 'filled',
+            title: 'Verification Complete',
+            message: 'Patient identity has been verified.',
+            duration: 5000
+        });
+    }, 1500);
+}
+
+// Export showAlert for use in other parts of the app
+window.showAlert = showAlert;

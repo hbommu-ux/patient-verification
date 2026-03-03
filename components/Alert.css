@@ -1,0 +1,273 @@
+/**
+ * Alert Component Styles
+ * Based on Natera Design System tokens
+ *
+ * Variants: filled (default), outlined
+ * Severities: error, warning, info, success
+ */
+
+/* ===== Alert Base ===== */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    transition: background-color 0.2s ease;
+}
+
+.alert[role="alert"] {
+    position: relative;
+}
+
+/* ===== Alert Icon ===== */
+.alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alert-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== Alert Content ===== */
+.alert-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.alert-title {
+    font-weight: 500;
+}
+
+.alert-message {
+    font-weight: 400;
+}
+
+/* ===== Alert Close Button ===== */
+.alert-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.alert-close-btn:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.alert-close-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Clickable Alert ===== */
+.alert-clickable {
+    cursor: pointer;
+}
+
+/* ===== ERROR Severity ===== */
+.alert-error {
+    background-color: #fce9e9; /* red-50 */
+    border: 1px solid #f9d7d7; /* red-100 */
+    color: #cd1d1d; /* red-600 */
+}
+
+.alert-error .alert-icon {
+    color: #e23636; /* red-500 */
+}
+
+.alert-error .alert-title {
+    color: #cd1d1d; /* red-600 */
+}
+
+.alert-error .alert-message {
+    color: #e85e5e; /* red-400 */
+}
+
+.alert-error .alert-close-btn {
+    color: #cd1d1d;
+}
+
+/* Error Outlined */
+.alert-error.alert-outlined {
+    background-color: transparent;
+}
+
+.alert-error.alert-outlined:hover {
+    background-color: #fce9e9;
+}
+
+/* ===== WARNING Severity ===== */
+.alert-warning {
+    background-color: #ffede5; /* orange-50 */
+    border: 1px solid #ffded1; /* orange-100 */
+    color: #eb4200; /* orange-600 */
+}
+
+.alert-warning .alert-icon {
+    color: #ff5b1a; /* orange-500 */
+}
+
+.alert-warning .alert-title {
+    color: #eb4200; /* orange-600 */
+}
+
+.alert-warning .alert-message {
+    color: #ff7b47; /* orange-400 */
+}
+
+.alert-warning .alert-close-btn {
+    color: #eb4200;
+}
+
+/* Warning Outlined */
+.alert-warning.alert-outlined {
+    background-color: transparent;
+}
+
+.alert-warning.alert-outlined:hover {
+    background-color: #ffede5;
+}
+
+/* ===== INFO Severity ===== */
+.alert-info {
+    background-color: #daf2f6; /* turquoise-100 */
+    border: 1px solid #b6e4ed; /* turquoise-200 */
+    color: #268697; /* turquoise-700 */
+}
+
+.alert-info .alert-icon {
+    color: #47bcd1; /* turquoise-500 */
+}
+
+.alert-info .alert-title {
+    color: #268697; /* turquoise-700 */
+}
+
+.alert-info .alert-message {
+    color: #2fa7bc; /* turquoise-600 */
+}
+
+.alert-info .alert-close-btn {
+    color: #268697;
+}
+
+/* Info Outlined */
+.alert-info.alert-outlined {
+    background-color: transparent;
+}
+
+.alert-info.alert-outlined:hover {
+    background-color: #daf2f6;
+}
+
+/* ===== SUCCESS Severity ===== */
+.alert-success {
+    background-color: #ddf3eb; /* basil-100 */
+    border: 1px solid #bbe7d8; /* basil-200 */
+    color: #318c6c; /* basil-700 */
+}
+
+.alert-success .alert-icon {
+    color: #55c39d; /* basil-500 */
+}
+
+.alert-success .alert-title {
+    color: #318c6c; /* basil-700 */
+}
+
+.alert-success .alert-message {
+    color: #3dae86; /* basil-600 */
+}
+
+.alert-success .alert-close-btn {
+    color: #318c6c;
+}
+
+/* Success Outlined */
+.alert-success.alert-outlined {
+    background-color: transparent;
+}
+
+.alert-success.alert-outlined:hover {
+    background-color: #ddf3eb;
+}
+
+/* ===== Alert Animation ===== */
+.alert-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.alert-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.alert-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alert-exit-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ===== Alert Without Icon ===== */
+.alert-no-icon .alert-icon {
+    display: none;
+}
+
+/* ===== Alert Without Close Button ===== */
+.alert-no-close .alert-close-btn {
+    display: none;
+}
+
+/* ===== Alert Sizes ===== */
+.alert-small {
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.alert-small .alert-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.alert-large {
+    padding: 16px 20px;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.alert-large .alert-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ===== Full Width ===== */
+.alert-full-width {
+    width: 100%;
+}
