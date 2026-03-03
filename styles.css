@@ -642,11 +642,10 @@ body {
     font-family: var(--font-family);
     font-size: var(--font-size-sm);
     font-weight: 500;
-    color: var(--primary-main);
     letter-spacing: var(--letter-spacing-button);
     text-transform: uppercase;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, color 0.2s ease;
     flex-shrink: 0;
     margin-left: auto;
 }
@@ -658,6 +657,23 @@ body {
 .reverify-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* RE-VERIFY button colors based on alert state */
+.alert-success .reverify-btn {
+    color: var(--basil-700); /* Green */
+}
+
+.alert-warning .reverify-btn {
+    color: #eb4200; /* Orange-600 */
+}
+
+.alert-info .reverify-btn {
+    color: var(--turquoise-700); /* Turquoise */
+}
+
+.alert-error .reverify-btn {
+    color: #cd1d1d; /* Red-600 */
 }
 
 /* ===== FORM SECTION ===== */
