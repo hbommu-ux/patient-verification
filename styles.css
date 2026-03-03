@@ -390,6 +390,86 @@ body {
     letter-spacing: var(--letter-spacing-tight);
 }
 
+/* Patient Selector Dropdown */
+.patient-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.patient-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.patient-dropdown-btn:hover {
+    background: var(--action-hovered);
+}
+
+.patient-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: var(--space-8);
+    min-width: 280px;
+    background: var(--surface-lowest);
+    border: 1px solid var(--card-outlined-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+    display: none;
+}
+
+.patient-dropdown.open {
+    display: block;
+}
+
+.patient-option {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-12) var(--space-16);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.patient-option:first-child {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.patient-option:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.patient-option:hover {
+    background: var(--action-hovered);
+}
+
+.patient-option.active {
+    background: rgba(0, 129, 189, 0.08);
+}
+
+.patient-option-name {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.patient-option-dob {
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
 .patient-actions {
     display: flex;
     align-items: center;

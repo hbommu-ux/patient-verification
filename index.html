@@ -50,7 +50,7 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 8a3 3 0 100-6 3 3 0 000 6zM3 14c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <span>Jane Doe</span>
+            <span id="breadcrumb-patient-name">Brittney Spears</span>
             <span class="separator">›</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <circle cx="8" cy="8" r="6" stroke="#6B7280" stroke-width="1.5"/>
@@ -89,10 +89,24 @@
                 <div class="patient-header">
                     <div class="patient-header-left">
                         <div class="patient-name-row">
-                            <h1>Brittney Spears</h1>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <div class="patient-selector">
+                                <h1 id="patient-name">Brittney Spears</h1>
+                                <button class="patient-dropdown-btn" id="patient-dropdown-btn">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M4 6l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="patient-dropdown" id="patient-dropdown">
+                                    <div class="patient-option active" data-patient="brittney-spears">
+                                        <span class="patient-option-name">Brittney Spears</span>
+                                        <span class="patient-option-dob">DOB: 07/30/1982</span>
+                                    </div>
+                                    <div class="patient-option" data-patient="nicole-kidman">
+                                        <span class="patient-option-name">Nicole Kidman</span>
+                                        <span class="patient-option-dob">DOB: 06/20/1967</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="patient-actions">
                             <button class="icon-btn">
