@@ -791,6 +791,47 @@ body {
     letter-spacing: var(--letter-spacing-tight);
 }
 
+/* Section Title Row with Verification Tag */
+.section-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    margin-bottom: var(--space-20);
+}
+
+.section-title-row h3 {
+    margin-bottom: 0;
+}
+
+/* Verification Tag */
+.verification-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-10);
+    border-radius: var(--radius-circle);
+    font-family: var(--font-family);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Verification Tag States */
+.verification-tag.tag-success {
+    background-color: var(--basil-100);
+    color: var(--basil-700);
+}
+
+.verification-tag.tag-warning {
+    background-color: var(--orange-50);
+    color: #eb4200;
+}
+
+.verification-tag.tag-error {
+    background-color: var(--red-50);
+    color: #cd1d1d;
+}
+
 .section-header {
     display: flex;
     justify-content: space-between;

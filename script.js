@@ -115,6 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize verification alert based on date
     initVerificationAlert();
 
+    // Initialize verification tags
+    updateVerificationTags(patientsData[currentPatient].verificationDate);
+
     // Initialize form change tracking for Save/Cancel buttons
     initFormChangeTracking();
     // Navigation link active state handling
@@ -243,6 +246,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Update alert state (newly verified = success/green)
                 updateVerificationAlertState(alertEl, today);
+
+                // Update verification tags
+                updateVerificationTags(formattedDate);
+
+                // Update patient data
+                if (patientsData[currentPatient]) {
+                    patientsData[currentPatient].verificationDate = formattedDate;
+                }
 
                 reverifyBtn.disabled = false;
                 reverifyBtn.textContent = 'VERIFY';
@@ -666,6 +677,9 @@ function switchPatient(patientId) {
     // Update verification alert
     updateVerificationDate(patient.verificationDate);
 
+    // Update verification tags on Addresses and Phone & Email sections
+    updateVerificationTags(patient.verificationDate);
+
     // Reset form state
     saveInitialFormState();
     setFormButtonsState(false);
@@ -892,6 +906,49 @@ function selectOptionByText(selectElement, text) {
             return;
         }
     }
+}
+
+// ===== Verification Tags =====
+
+function updateVerificationTags(dateString) {
+    const addressTag = document.getElementById('addresses-verification-tag');
+    const phoneTag = document.getElementById('phone-verification-tag');
+
+    const tags = [addressTag, phoneTag];
+
+    tags.forEach(tag => {
+        if (!tag) return;
+
+        const textEl = tag.querySelector('.verification-tag-text');
+
+        // Remove existing state classes
+        tag.classList.remove('tag-success', 'tag-warning', 'tag-error');
+
+        if (!dateString) {
+            // Unverified state
+            if (textEl) textEl.textContent = 'Unverified';
+            tag.classList.add('tag-error');
+        } else {
+            // Parse the date
+            const dateMatch = dateString.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+            if (dateMatch) {
+                const [, month, day, year] = dateMatch;
+                const verificationDate = new Date(year, month - 1, day);
+                const sixMonthsAgo = new Date();
+                sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+                if (textEl) textEl.textContent = `Verified on ${dateString}`;
+
+                if (verificationDate < sixMonthsAgo) {
+                    // Older than 6 months - warning
+                    tag.classList.add('tag-warning');
+                } else {
+                    // Recent - success
+                    tag.classList.add('tag-success');
+                }
+            }
+        }
+    });
 }
 
 function clearAllForms() {
