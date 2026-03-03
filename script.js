@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateVerificationAlertState(alertEl, today);
 
                 reverifyBtn.disabled = false;
-                reverifyBtn.textContent = 'RE-VERIFY';
+                reverifyBtn.textContent = 'VERIFY';
             }, 1500);
         });
     }
